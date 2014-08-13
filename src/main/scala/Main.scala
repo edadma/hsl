@@ -12,32 +12,45 @@ object Main extends SimpleSwingApplication
 	var shades = 5
 	var margin = .2
 	
-	val SIZE = 100
+	val SIZE = 400
 	
 	def top =
 		new MainFrame
 		{
 			contents =
 				new FlowPanel(
-					new ParameterSlider(h => {hsl = hsl.hue(h/100.0)}),
-					new ParameterSlider(s => {hsl = hsl.saturation(s/100.0)}),
-					new ParameterSlider(l => {hsl = hsl.luminosity(l/100.0)}),
+					new ParameterSlider(100, h => {hsl = hsl.hue(h/100.0)}),
+					new ParameterSlider(100, s => {hsl = hsl.saturation(s/100.0)}),
+					new ParameterSlider(20, s => {shades = s}),
+					new ParameterSlider(100, m => {margin = m/100.0}),
 					ColorPanel )
 		}
 		
-	class ParameterSlider( notify: Int => Unit ) extends Slider
+	class ParameterSlider( maxValue: Int, change: Int => Unit ) extends BoxPanel( Orientation.Vertical )
 	{
-		min = 0
-		max = 100
-		value = 0
-		orientation = Orientation.Vertical
-		preferredSize = (preferredSize.width, SIZE)
-		
-		reactions += {
-			case ValueChanged( _ ) =>
-				notify( value )
-				ColorPanel.repaint
+	val label =
+		new Label( "0", null, Alignment.Left )
+		{
+			preferredSize = (40, preferredSize.height)
 		}
+	
+		contents += label
+		contents +=
+			new Slider
+			{
+				min = 0
+				max = maxValue
+				value = 0
+				orientation = Orientation.Vertical
+				preferredSize = (40, SIZE)
+				
+				reactions += {
+					case ValueChanged( _ ) =>
+						change( value )
+						label.text = value.toString
+						ColorPanel.repaint
+				}
+			}
 	}
 	
 	object ColorPanel extends Panel

@@ -79,19 +79,19 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-licenses := Seq("LGPL" -> url("http://opensource.org/licenses/lgpl-3.0.html"))
+licenses := Seq("GPL" -> url("http://opensource.org/licenses/GPL"))
 
-homepage := Some(url("https://github.com/FunL/funl"))
+homepage := Some(url("https://github.com/edadma/color"))
 
 pomExtra := (
   <scm>
-    <url>git@github.com:FunL/funl.git</url>
-    <connection>scm:git:git@github.com:FunL/funl.git</connection>
+    <url>git@github.com:edadma/color.git</url>
+    <connection>scm:git:git@github.com:edadma/color.git</connection>
   </scm>
   <developers>
     <developer>
       <id>edadma</id>
       <name>Edward A. Maxedon, Sr.</name>
-      <url>http://funl-lang.org</url>
+      <url>http://hyperreal.ca</url>
     </developer>
   </developers>)

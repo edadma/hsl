@@ -51,7 +51,7 @@ case class HSL( h: Double, s: Double, l: Double )
 	def luminosity( newl: Double ) = HSL( h, s, newl )
 	
 	def shading( shades: Int, margin: Double ) =
-		for (i <- 0 until shades)
+		for (i <- 1 to shades)
 			yield luminosity( (1-margin*2)/shades*i + margin ).toColor
 	
 	def toColor =
