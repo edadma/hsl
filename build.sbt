@@ -79,7 +79,7 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-licenses := Seq("GPL" -> url("http://opensource.org/licenses/GPL"))
+licenses := Seq("GPL" -> url("http://opensource.org/licenses/GPL-3.0"))
 
 homepage := Some(url("https://github.com/edadma/color"))
 
