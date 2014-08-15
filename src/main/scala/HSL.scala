@@ -40,6 +40,10 @@ object HSL
 	}
 	
 	def fromColor( c: Color ) = fromRGB( c.getRed, c.getGreen, c.getBlue )
+	
+	def shading( h: Double, s: Double, shades: Int, margin: Double ) =
+		for (i <- 1 to shades)
+			yield HSL( h, s, (1-margin*2)/shades*i + margin ).toColor
 }
 
 case class HSL( h: Double, s: Double, l: Double )
@@ -49,11 +53,7 @@ case class HSL( h: Double, s: Double, l: Double )
 	def saturation( news: Double ) = HSL( h, news, l )
 	
 	def luminosity( newl: Double ) = HSL( h, s, newl )
-	
-	def shading( shades: Int, margin: Double ) =
-		for (i <- 1 to shades)
-			yield luminosity( (1-margin*2)/shades*i + margin ).toColor
-	
+		
 	def toColor =
 	{
 	var r: Double = 0

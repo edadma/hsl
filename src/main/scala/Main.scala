@@ -8,7 +8,8 @@ import java.awt.Color._
 
 object Main extends SimpleSwingApplication
 {
-	var hsl = HSL.fromColor( BLACK )
+	var hue = 0.0
+	var saturation = 0.0
 	var shades = 5
 	var margin = .2
 	
@@ -19,10 +20,10 @@ object Main extends SimpleSwingApplication
 		{
 			contents =
 				new FlowPanel(
-					new ParameterSlider(100, h => {hsl = hsl.hue(h/100.0)}),
-					new ParameterSlider(100, s => {hsl = hsl.saturation(s/100.0)}),
-					new ParameterSlider(20, s => {shades = s}),
-					new ParameterSlider(100, m => {margin = m/100.0}),
+					new ParameterSlider(100, h => hue = h/100.0),
+					new ParameterSlider(100, s => saturation = s/100.0),
+					new ParameterSlider(20, s => shades = s),
+					new ParameterSlider(100, m => margin = m/100.0),
 					ColorPanel )
 		}
 		
@@ -61,7 +62,7 @@ object Main extends SimpleSwingApplication
 		{
 			super.paintComponent( g )
 
-		val colors = hsl.shading( shades, margin )
+		val colors = HSL.shading( hue, saturation, shades, margin )
 		
 			for (i <- 0 until shades)
 			{
