@@ -1,4 +1,4 @@
-package ca.hyperreal.color
+package ca.hyperreal.hsl
 
 import swing._
 import Swing._
