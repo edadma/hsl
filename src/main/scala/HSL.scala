@@ -1,6 +1,6 @@
 package ca.hyperreal.hsl
 
-import swing._
+import java.awt.Color
 
 
 object HSL

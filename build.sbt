@@ -2,7 +2,7 @@ name := "HSL"
 
 version := "0.1"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.6"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -28,9 +28,11 @@ mainClass in (Compile, run) := Some( "ca.hyperreal.hsl.Main" )
 //offline := true
 
 
+seq(bintraySettings:_*)
+
 publishMavenStyle := true
 
-publishTo := Some( Resolver.sftp( "private", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
+//publishTo := Some( Resolver.sftp( "private", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
 
 publishArtifact in Test := false
 
