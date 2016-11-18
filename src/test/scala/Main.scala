@@ -1,4 +1,4 @@
-package ca.hyperreal.hsl
+package xyz.hyperreal.hsl
 
 import swing._
 import Swing._

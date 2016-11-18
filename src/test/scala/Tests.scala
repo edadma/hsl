@@ -1,13 +1,12 @@
-package ca.hyperreal.hsl
+package xyz.hyperreal.hsl
 
 import org.scalatest._
 import prop.PropertyChecks
 
-import java.awt.Color
 import java.awt.Color._
 
 
-class HSLTest extends FreeSpec with PropertyChecks with Matchers
+class Tests extends FreeSpec with PropertyChecks with Matchers
 {
 	"reversible" in
 	{

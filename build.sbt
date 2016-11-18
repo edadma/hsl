@@ -1,38 +1,35 @@
-name := "HSL"
+name := "hsl"
 
-version := "0.1"
+version := "0.2"
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.12.0"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
 incOptions := incOptions.value.withNameHashing( true )
 
-organization := "ca.hyperreal"
+organization := "xyz.hyperreal"
 
-//resolvers += Resolver.sonatypeRepo( "snapshots" )
+resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-resolvers += "Hyperreal Repository" at "http://hyperreal.ca/maven2"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
-
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.5" % "test"
+resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
 libraryDependencies ++= Seq(
-	"org.scala-lang.modules" %% "scala-swing" % "1.0.1"
-//	"org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.2"
-	)
+	"org.scalatest" %% "scalatest" % "3.0.0" % "test",
+	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+)
 
-mainClass in (Compile, run) := Some( "ca.hyperreal.hsl.Main" )
+libraryDependencies ++= Seq(
+	"org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2" % "test"
+)
 
-//offline := true
+mainClass in (Compile, run) := Some( "xyz.hyperreal." + name.value.replace('-', '_') + ".Main" )
 
+mainClass in assembly := Some( "xyz.hyperreal." + name.value.replace('-', '_') + ".Main" )
 
-seq(bintraySettings:_*)
+assemblyJarName in assembly := name.value + "-" + version.value + ".jar"
 
 publishMavenStyle := true
-
-//publishTo := Some( Resolver.sftp( "private", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
 
 publishArtifact in Test := false
 
@@ -40,17 +37,17 @@ pomIncludeRepository := { _ => false }
 
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
-homepage := Some(url("https://github.com/edadma/hsl"))
+homepage := Some(url("https://github.com/edadma/" + name.value))
 
 pomExtra := (
   <scm>
-    <url>git@github.com:edadma/hsl.git</url>
-    <connection>scm:git:git@github.com:edadma/hsl.git</connection>
+    <url>git@github.com:edadma/{name.value}.git</url>
+    <connection>scm:git:git@github.com:edadma/{name.value}.git</connection>
   </scm>
   <developers>
     <developer>
       <id>edadma</id>
       <name>Edward A. Maxedon, Sr.</name>
-      <url>http://hyperreal.ca</url>
+      <url>https://github.com/edadma</url>
     </developer>
   </developers>)
