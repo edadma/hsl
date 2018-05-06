@@ -85,8 +85,8 @@ case class HSL( h: Double, s: Double, l: Double ) {
 					p
 			}
 
-			var q = if (l < 0.5) l * (1 + s) else l + s - l * s
-			var p = 2 * l - q
+			val q = if (l < 0.5) l * (1 + s) else l + s - l * s
+			val p = 2 * l - q
 
 			r = hue2rgb(p, q, h + 1/3.0)
 			g = hue2rgb(p, q, h)
