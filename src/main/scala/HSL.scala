@@ -49,8 +49,14 @@ case class HSL( h: Double, s: Double, l: Double ) {
 	def saturation( news: Double ) = HSL( h, news, l )
 	
 	def luminosity( newl: Double ) = HSL( h, s, newl )
-		
-	def toColor = {
+
+  def toColor = {
+    val (r, g, b) = toRGB
+
+    new Color( r, g, b )
+  }
+
+	def toRGB = {
     var r: Double = 0
     var g: Double = 0
     var b: Double = 0
@@ -87,7 +93,7 @@ case class HSL( h: Double, s: Double, l: Double ) {
 			b = hue2rgb(p, q, h - 1/3.0)
 		}
 	
-		new Color( (r*255).round.toInt, (g*255).round.toInt, (b*255).round.toInt )
+    ((r*255).round.toInt, (g*255).round.toInt, (b*255).round.toInt)
 	}
 
 }
