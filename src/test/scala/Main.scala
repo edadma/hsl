@@ -58,8 +58,7 @@ object Main extends SimpleSwingApplication
 	{
 		preferredSize = (SIZE, SIZE)
 		
-		override def paintComponent( g: Graphics2D )
-		{
+		override def paintComponent( g: Graphics2D ) = {
 			super.paintComponent( g )
 
 		val colors = HSL.shading( hue, saturation, shades, margin )
