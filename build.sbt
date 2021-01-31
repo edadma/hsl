@@ -1,47 +1,51 @@
-name := "hsl"
+ThisBuild / libraryDependencies ++=
+  Seq(
+    "com.lihaoyi" %%% "utest" % "0.7.7" % "test",
+  )
 
-version := "0.4"
+lazy val root = project.in(file(".")).
+  aggregate(hsl.js, hsl.jvm/*, hsl.native*/).
+  settings(
+    publish := {},
+    publishLocal := {},
+  )
 
-scalaVersion := "2.13.0"
-
-scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
-
-organization := "xyz.hyperreal"
-
-resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
-
-resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
-
-libraryDependencies ++= Seq(
-	"org.scalatest" %% "scalatest" % "3.0.8" % "test",
-	"org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
-)
-
-libraryDependencies ++= Seq(
-	"org.scala-lang.modules" %% "scala-swing" % "2.1.1" % "test"
-)
-
-mainClass in (Compile, run) := Some( "xyz.hyperreal." + name.value.replace('-', '_') + ".Main" )
-
-publishMavenStyle := true
-
-publishArtifact in Test := false
-
-pomIncludeRepository := { _ => false }
-
-licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
-
-homepage := Some(url("https://github.com/edadma/" + name.value))
-
-pomExtra :=
-  <scm>
-    <url>git@github.com:edadma/{name.value}.git</url>
-    <connection>scm:git:git@github.com:edadma/{name.value}.git</connection>
-  </scm>
-  <developers>
-    <developer>
-      <id>edadma</id>
-      <name>Edward A. Maxedon, Sr.</name>
-      <url>https://github.com/edadma</url>
-    </developer>
-  </developers>
+lazy val hsl = crossProject(JSPlatform, JVMPlatform/*, NativePlatform*/).crossType(CrossType.Pure).in(file(".")).
+  settings(
+    name := "hsl",
+    version := "1.0.0",
+    scalaVersion := "2.13.4",
+    scalacOptions ++=
+      Seq(
+        "-deprecation", "-feature", "-unchecked",
+        "-language:postfixOps", "-language:implicitConversions", "-language:existentials", "-language:dynamics",
+        "-Xasync"
+      ),
+    organization := "xyz.hyperreal",
+    mainClass := Some("xyz.hyperreal.hsl.Main"),
+    testFrameworks += new TestFramework("utest.runner.Framework"),
+    publishMavenStyle := true,
+    publishArtifact in Test := false,
+    licenses := Seq("ISC" -> url("https://opensource.org/licenses/ISC"))
+  ).
+  jvmSettings(
+    libraryDependencies += "org.scala-js" %% "scalajs-stubs" % "1.0.0" % "provided",
+  ).
+//  nativeSettings(
+//    libraryDependencies ++=
+//      Seq(
+//        "com.lihaoyi" %%% "utest" % "0.7.7" % "test",
+//      ),
+//  ).
+  jsSettings(
+    jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv(),
+//    Test / scalaJSUseMainModuleInitializer := true,
+//    Test / scalaJSUseTestModuleInitializer := false,
+    Test / scalaJSUseMainModuleInitializer := false,
+    Test / scalaJSUseTestModuleInitializer := true,
+    scalaJSUseMainModuleInitializer := true,
+    libraryDependencies ++=
+      Seq(
+        "com.lihaoyi" %%% "utest" % "0.7.7" % "test",
+      ),
+  )
