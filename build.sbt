@@ -2,6 +2,13 @@ ThisBuild / libraryDependencies ++=
   Seq(
     "com.lihaoyi" %%% "utest" % "0.7.7" % "test",
   )
+ThisBuild / scalaVersion := "2.13.4"
+ThisBuild / scalacOptions ++=
+  Seq(
+    "-deprecation", "-feature", "-unchecked",
+    "-language:postfixOps", "-language:implicitConversions", "-language:existentials", "-language:dynamics",
+    "-Xasync"
+  )
 
 lazy val root = project.in(file(".")).
   aggregate(hsl.js, hsl.jvm/*, hsl.native*/).
@@ -14,13 +21,6 @@ lazy val hsl = crossProject(JSPlatform, JVMPlatform/*, NativePlatform*/).crossTy
   settings(
     name := "hsl",
     version := "1.0.0",
-    scalaVersion := "2.13.4",
-    scalacOptions ++=
-      Seq(
-        "-deprecation", "-feature", "-unchecked",
-        "-language:postfixOps", "-language:implicitConversions", "-language:existentials", "-language:dynamics",
-        "-Xasync"
-      ),
     organization := "xyz.hyperreal",
     mainClass := Some("xyz.hyperreal.hsl.Main"),
     testFrameworks += new TestFramework("utest.runner.Framework"),
