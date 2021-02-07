@@ -1,8 +1,6 @@
 package xyz.hyperreal.hsl
 
-object Main extends App {
-  println(123)
-}
+object Main extends App {}
 
 //import swing._
 //import Swing._
