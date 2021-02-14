@@ -18,6 +18,7 @@ lazy val hsl = crossProject(JSPlatform, JVMPlatform/*, NativePlatform*/).in(file
   ).
   jvmSettings(
     libraryDependencies += "org.scala-js" %% "scalajs-stubs" % "1.0.0" % "provided",
+    libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0" % "test"
   ).
   //  nativeSettings(
   //    nativeLinkStubs := true
