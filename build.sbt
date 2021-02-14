@@ -19,17 +19,14 @@ lazy val hsl = crossProject(JSPlatform, JVMPlatform/*, NativePlatform*/).in(file
   jvmSettings(
     libraryDependencies += "org.scala-js" %% "scalajs-stubs" % "1.0.0" % "provided",
   ).
-//  nativeSettings(
-//    libraryDependencies ++=
-//      Seq(
-//        "com.lihaoyi" %%% "utest" % "0.7.7" % "test",
-//      ),
-//  ).
+  //  nativeSettings(
+  //    nativeLinkStubs := true
+  //  ).
   jsSettings(
     jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv(),
 //    Test / scalaJSUseMainModuleInitializer := true,
 //    Test / scalaJSUseTestModuleInitializer := false,
     Test / scalaJSUseMainModuleInitializer := false,
     Test / scalaJSUseTestModuleInitializer := true,
-    scalaJSUseMainModuleInitializer := true,
+    scalaJSUseMainModuleInitializer := true
   )
