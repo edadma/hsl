@@ -1,4 +1,4 @@
-package xyz.hyperreal.hsl
+package io.github.edadma.hsl
 
 import swing._
 import Swing._

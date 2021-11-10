@@ -1,4 +1,4 @@
-package xyz.hyperreal.hsl
+package io.github.edadma.hsl
 
 object HSL {
 
