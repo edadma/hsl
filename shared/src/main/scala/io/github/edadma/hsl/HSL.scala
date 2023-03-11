@@ -1,61 +1,54 @@
 package io.github.edadma.hsl
 
-object HSL {
+object HSL:
+  def fromRGB(red: Int, green: Int, blue: Int): HSL = fromRGB(red / 255.0, green / 255.0, blue / 255.0)
 
-  def fromRGB(red: Int, green: Int, blue: Int): HSL = {
-    val (r, g, b) = (red / 255.0, green / 255.0, blue / 255.0)
-    val max = r max g max b
-    val min = r min g min b
+  def fromRGB(red: Double, green: Double, blue: Double): HSL =
+    val max = red max green max blue
+    val min = red min green min blue
 
     val l = (max + min) / 2
     var h = l
     var s = l
 
-    if (max == min) {
+    if (max == min)
       h = 0
       s = 0
-    } else {
+    else
       val d = max - min
 
       s = if (l > 0.5) d / (2 - max - min) else d / (max + min)
 
-      max match {
-        case `r` => h = (g - b) / d + (if (g < b) 6 else 0)
-        case `g` => h = (b - r) / d + 2
-        case `b` => h = (r - g) / d + 4
-      }
+      max match
+        case `red`   => h = (green - blue) / d + (if (green < blue) 6 else 0)
+        case `green` => h = (blue - red) / d + 2
+        case `blue`  => h = (red - green) / d + 4
 
       h /= 6
-    }
 
-    new HSL(h, s, l)
-  }
+    HSL(h, s, l)
 
   def shading(h: Double, s: Double, shades: Int, margin: Double): Seq[HSL] =
     for (i <- 1 to shades)
       yield HSL(h, s, (1 - margin * 2) / shades * i + margin)
+end HSL
 
-}
-
-case class HSL(h: Double, s: Double, l: Double) {
-
+case class HSL(h: Double, s: Double, l: Double):
   def hue(newh: Double): HSL = HSL(newh, s, l)
 
   def saturation(news: Double): HSL = HSL(h, news, l)
 
   def luminosity(newl: Double): HSL = HSL(h, s, newl)
 
-  def toRGB: (Int, Int, Int) = {
-    var r: Double = 0
-    var g: Double = 0
-    var b: Double = 0
+  def toRGBInt: (Int, Int, Int) =
+    val (r, g, b) = toRGB
 
-    if (s == 0) {
-      r = l
-      g = l
-      b = l
-    } else {
-      def hue2rgb(p: Double, q: Double, t: Double) = {
+    ((r * 255).round.toInt, (g * 255).round.toInt, (b * 255).round.toInt)
+
+  def toRGB: (Double, Double, Double) =
+    if (s == 0) (l, l, l)
+    else
+      def hue2rgb(p: Double, q: Double, t: Double) =
         val _t =
           if (t < 0)
             t + 1
@@ -72,17 +65,11 @@ case class HSL(h: Double, s: Double, l: Double) {
           p + (q - p) * (2 / 3.0 - _t) * 6
         else
           p
-      }
+      end hue2rgb
 
       val q = if (l < 0.5) l * (1 + s) else l + s - l * s
       val p = 2 * l - q
 
-      r = hue2rgb(p, q, h + 1 / 3.0)
-      g = hue2rgb(p, q, h)
-      b = hue2rgb(p, q, h - 1 / 3.0)
-    }
-
-    ((r * 255).round.toInt, (g * 255).round.toInt, (b * 255).round.toInt)
-  }
-
-}
+      (hue2rgb(p, q, h + 1 / 3.0), hue2rgb(p, q, h), hue2rgb(p, q, h - 1 / 3.0))
+  end toRGB
+end HSL

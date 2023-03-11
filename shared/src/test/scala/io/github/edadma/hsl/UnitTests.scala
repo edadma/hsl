@@ -15,10 +15,10 @@ class UnitTests extends AnyFreeSpec with Matchers {
         (0, 0, 0), // black
         (255, 255, 0), // yellow
         (255, 0, 255), // magenta
-        (255, 200, 0) // orange
+        (255, 200, 0), // orange
       )
 
     for ((r, g, b) <- colors)
-      HSL.fromRGB(r, g, b).toRGB shouldBe (r, g, b)
+      HSL.fromRGB(r, g, b).toRGBInt shouldBe (r, g, b)
   }
 }
